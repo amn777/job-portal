@@ -1,0 +1,21 @@
+# Backend
+backend/job-portal-backend/target/
+backend/job-portal-backend/*.class
+*.jar
+*.war
+
+# Frontend
+frontend/node_modules/
+frontend/build/
+frontend/.env.local
+frontend/.env.production
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.DS_Store
+
+# Secrets — NEVER commit these
+application-prod.properties
+*.env
