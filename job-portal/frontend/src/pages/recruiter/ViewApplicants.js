@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { applicationAPI, jobAPI } from '../../services/api';
 import toast from 'react-hot-toast';
@@ -16,19 +16,18 @@ export default function ViewApplicants() {
   const [page, setPage]     = useState(0);
   const [totalPages, setTotal] = useState(0);
   const [updating, setUpdating] = useState(null);
-
-  useEffect(() => {
-    jobAPI.getById(jobId).then(r => setJob(r.data)).catch(() => {});
-    loadApps(0);
-  }, [jobId]);
-
-  const loadApps = (p) => {
+  const loadApps = useCallback((p) => {
     setLoading(true);
     applicationAPI.getJobApps(jobId, p, 10)
       .then(r => { setApps(r.data.content); setTotal(r.data.totalPages); setPage(p); })
       .catch(() => toast.error('Failed to load applicants'))
       .finally(() => setLoading(false));
-  };
+  }, [jobId]);
+
+  useEffect(() => {
+    jobAPI.getById(jobId).then(r => setJob(r.data)).catch(() => {});
+    loadApps(0);
+  }, [jobId, loadApps]);
 
   const updateStatus = async (appId, status) => {
     setUpdating(appId);
@@ -137,3 +136,5 @@ const styles = {
   clText: { fontSize:13, color:'var(--text)', lineHeight:1.6 },
   statusRow: { display:'flex', alignItems:'center', gap:12, flexWrap:'wrap', paddingTop:12, borderTop:'1px solid var(--border)' },
 };
+
+
