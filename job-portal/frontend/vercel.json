@@ -1,8 +1,5 @@
 {
   "rewrites": [
     { "source": "/(.*)", "destination": "/" }
-  ],
-  "env": {
-    "REACT_APP_API_URL": "https://job-portal-4-ll7r.onrender.com/api"
-  }
+  ]
 }
