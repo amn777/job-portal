@@ -2,8 +2,7 @@ import axios from 'axios';
 
 const API_BASE = 'https://job-portal-4-ll7r.onrender.com/api';
 
-// Force rebuild v2
-const API_BASE = 'https://job-portal-4-ll7r.onrender.com/api';
+
 
 const api = axios.create({
   baseURL: API_BASE,
